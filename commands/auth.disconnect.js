@@ -4,7 +4,7 @@ const { db } = require('./auth.connect')
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('disconnect')
-    .setDescription('get information about currently connected wallet'),
+    .setDescription('disconnect currently connected wallet'),
   async execute (interaction) {
     try {
       await interaction.deferReply({ ephemeral: true })
