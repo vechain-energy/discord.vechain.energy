@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@keyv/sqlite": "^3.6.4",
+    "bent": "^7.3.12",
     "discord.js": "^14.7.1",
+    "keyv": "^4.5.2",
     "nodemon": "^2.0.20"
   },
   "devDependencies": {
