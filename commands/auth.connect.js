@@ -26,13 +26,15 @@ module.exports = {
 
       const status = await waitForUserAuth(sessionId)
 
-      // welcome if a auth was successful
+      if (status?.error) {
+        throw new Error(status.error)
+      }
+
       if (status?.access_token) {
         const userinfo = await postAuth('/oauth2/userinfo', {}, { authorization: `${status.token_type} ${status.access_token}` })
         await db.set(interaction.user.id, status)
+
         return interaction.editReply({ embeds: [], content: `Welcome ${userinfo.nickname || userinfo.address}!`, ephemeral: true })
-      } else if (status?.error) {
-        throw new Error(status.error)
       }
     } catch (err) {
       console.error(err)
@@ -61,8 +63,6 @@ async function waitForUserAuth (sessionId) {
 
     // check on session status while user is authenticating
     const status = await getAuth(`/session/${sessionId}`)
-
-    // welcome if a auth was successful
     if (status?.access_token || status?.error) {
       return status
     }
