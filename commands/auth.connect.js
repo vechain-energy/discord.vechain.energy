@@ -4,7 +4,7 @@ const wait = require('node:timers/promises').setTimeout
 const Keyv = require('keyv')
 
 const TIMEOUT_SECONDS = 90
-const INTERVAL_WAIT_SECONS = 1
+const INTERVAL_WAIT_SECONDS = 1
 const AUTH_SERVER = 'https://auth.api.vechain.energy'
 const AUTH_SCOPE = 'identity profile'
 
@@ -57,7 +57,7 @@ async function initSession () {
 async function waitForUserAuth (sessionId) {
   let timeout = TIMEOUT_SECONDS
   do {
-    await wait(INTERVAL_WAIT_SECONS * 1000)
+    await wait(INTERVAL_WAIT_SECONDS * 1000)
 
     // check on session status while user is authenticating
     const status = await getAuth(`/session/${sessionId}`)
