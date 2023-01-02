@@ -31,13 +31,10 @@ module.exports = {
         const userinfo = await postAuth('/oauth2/userinfo', {}, { authorization: `${status.token_type} ${status.access_token}` })
         await db.set(interaction.user.id, status)
         return interaction.editReply({ embeds: [], content: `Welcome ${userinfo.nickname || userinfo.address}!`, ephemeral: true })
-
-        // or show error
       } else if (status?.error) {
-        return interaction.editReply({ embeds: [], content: `Authentification failed: ${status.error}`, ephemeral: true })
+        throw new Error(status.error)
       }
     } catch (err) {
-      // show encounted errors
       console.error(err)
       return interaction.editReply({ embeds: [], content: `Authentification failed: ${err.message}`, ephemeral: true })
     }
